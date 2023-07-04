@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { cloneElement, Children } from 'react';
+const RadioGroup1 = (props) => {
+  const RenderChildren = () => (
+    Children.map(
+      props.children, child => { return cloneElement(child, { name: props.name }) }
+    )
+  )
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {<RenderChildren />}
     </div>
+  )
+}
+const RadioButton = (props) => {
+  return (
+    <label>
+      <input type='radio' value={props.value} name={props.name} />
+      {props.children}
+    </label>
+  )
+}
+export default function App() {
+  return (
+
+    <RadioGroup1 name="numbers">
+      <RadioButton value="first" >First</RadioButton>
+      <RadioButton value="second">Second</RadioButton>
+      <RadioButton value="third">Third</RadioButton>
+    </RadioGroup1>
+
   );
 }
-
-export default App;
